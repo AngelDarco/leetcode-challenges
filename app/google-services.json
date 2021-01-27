@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "728533817593",
+    "project_id": "bbdd-23779",
+    "storage_bucket": "bbdd-23779.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728533817593:android:3589a3bdb809696425aa28",
+        "android_client_info": {
+          "package_name": "com.example.textoavoz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728533817593-97pou9sj51em9537r0esu76g3bps6u5g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.textoavoz",
+            "certificate_hash": "846d219a49d6547ef3ca60342751c2b6c9b55629"
+          }
+        },
+        {
+          "client_id": "728533817593-pe93uggasa081desfdvpbscm8sie884i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIeRiZxA4w4kysc7UdSaOdF0S3-N8CS20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728533817593-pe93uggasa081desfdvpbscm8sie884i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
