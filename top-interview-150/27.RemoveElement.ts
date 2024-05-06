@@ -40,14 +40,12 @@ It does not matter what you leave beyond the returned k (hence they are undersco
 
 function removeElement(nums: number[], val: number): number {
   let j = 0;
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] !== val) {
+  nums.map((x, i) => {
+    if (x !== val) {
       nums[j] = nums[i];
       j++;
-      console.log(nums[j]);
     }
-  }
-
+  });
   return j;
 }
 
