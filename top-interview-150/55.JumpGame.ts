@@ -3,13 +3,12 @@ You are given an integer array nums. You are initially positioned at the array's
 
 Return true if you can reach the last index, or false otherwise.
 
- 
-
 Example 1:
 
 Input: nums = [2,3,1,1,4]
 Output: true
 Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+
 Example 2:
 
 Input: nums = [3,2,1,0,4]
@@ -18,10 +17,12 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum jump 
 */
 
 function canJump(nums: number[]): boolean {
-  let ii = nums[1];
-  for (let i = 0; i < nums.length; i++) {
-    if (ii >= nums.length - 1) return true;
-    else ii += nums[i];
+  let j = nums[1];
+  if (j >= nums.length || nums.length === 1) return true;
+
+  for (let i = 1; i < nums.length; i++) {
+    if (j >= nums.length - 1) return true;
+    else j += nums[j];
   }
   return false;
 }
@@ -29,6 +30,7 @@ function canJump(nums: number[]): boolean {
 console.log(canJump([3, 2, 1, 0, 4])); // false
 console.log(canJump([2, 3, 1, 1, 4])); // true
 
-console.log(canJump([1])); // true
+console.log(canJump([0])); // true
+console.log(canJump([1, 2])); // true
 
-/// version .23, last version .25
+console.log(canJump([0, 1])); // false
