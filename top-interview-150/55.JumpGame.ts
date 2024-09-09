@@ -17,13 +17,21 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum jump 
 */
 
 function canJump(nums: number[]): boolean {
-  let j = nums[1];
-  if (j >= nums.length || nums.length === 1) return true;
+  let maxReach = 0; // The farthest index we can currently reach
 
-  for (let i = 1; i < nums.length; i++) {
-    if (j >= nums.length - 1) return true;
-    else j += nums[j];
+  for (let i = 0; i < nums.length; i++) {
+    if (i > maxReach) {
+      // If the current index is beyond our maximum reach, return false
+      return false;
+    }
+    // Update the farthest reach
+    maxReach = Math.max(maxReach, i + nums[i]);
+    // If we can reach the last index, return true
+    if (maxReach >= nums.length - 1) {
+      return true;
+    }
   }
+
   return false;
 }
 
