@@ -22,19 +22,33 @@ Output: 2
 */
 
 function canJump(nums: number[]): number {
-  let minJ = [];
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] + 1 >= nums.length - 1) {
-      minJ.push(nums[i]);
-      console.log(minJ, i, nums[i]);
+  let jumps = 0; // Number of jumps made
+  let currentEnd = 0; // The farthest index we can reach with the current jump
+  let farthest = 0; // The farthest index we can reach in the future
+
+  // We stop one step before the last index, because we don't need to jump if we've reached the last index
+  for (let i = 0; i < nums.length - 1; i++) {
+    // Update the farthest index we can reach from this index
+    farthest = Math.max(farthest, i + nums[i]);
+
+    // If we've reached the end of the current jump range
+    if (i === currentEnd) {
+      jumps++; // Make a new jump
+      currentEnd = farthest; // Update the currentEnd to the farthest index we can reach
+
+      // If currentEnd is already beyond the last index, we can stop
+      if (currentEnd >= nums.length - 1) {
+        break;
+      }
     }
   }
 
-  return Math.min(...minJ);
+  return jumps;
 }
 
 console.log(canJump([2, 3, 1, 1, 4])); // 2
-
-// console.log(canJump([2, 3, 0, 1, 4])); // 2
-// console.log(canJump([2, 1])); // 1
-// console.log(canJump([1, 2, 3])); // 2
+console.log(canJump([2, 3, 0, 1, 4])); // 2
+console.log(canJump([2, 1])); // 1
+console.log(canJump([1, 2, 3])); // 2
+console.log(canJump([0])); // 0
+console.log(canJump([1, 1, 1, 1])); // 3
