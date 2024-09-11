@@ -21,27 +21,15 @@ Output: 1
  */
 
 function hIndex(citations: number[]): number {
-  let n = citations.length;
-  let arr = Array(n + 1).fill(0);
-
-  // Count the number of papers with at least i citations
-  for (let i = 0; i < n; i++) {
-    if (citations[i] >= n) {
-      arr[n]++;
-    } else {
-      arr[citations[i]]++;
-    }
+  const arr = citations.sort((a, b) => b - a);
+  let h = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] >= i + 1) {
+      h++;
+    } else break;
   }
 
-  // Calculate the h-index
-  let hIndex = 0;
-  for (let i = n; i >= 0; i--) {
-    hIndex += arr[i];
-    if (hIndex >= i) {
-      return i;
-    }
-  }
-  return 0;
+  return h;
 }
 
 console.log(hIndex([3, 0, 6, 1, 5])); // 3
@@ -52,4 +40,3 @@ console.log(hIndex([0])); // 0
 console.log(hIndex([1, 2])); // 1
 console.log(hIndex([1, 2, 3, 4, 5])); // 3
 console.log(hIndex([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])); // 5
-/* */
