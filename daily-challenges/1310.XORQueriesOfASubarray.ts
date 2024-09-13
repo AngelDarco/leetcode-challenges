@@ -30,15 +30,23 @@ Output: [8,0,4,4]
 */
 
 function xorQueries(arr: number[], queries: number[][]): number[] {
+  const len = arr.length;
+  const xor = new Array(len).fill(0);
   const res: number[] = [];
-  let xor = 0;
-  for (let i = 0; i < queries.length; i++) {
-    for (let j = queries[i][0]; j <= queries[i][1]; j++) {
-      xor = xor ^ arr[j];
-    }
-    res.push(xor);
-    xor = 0;
+
+  xor[0] = arr[0];
+  for (let i = 1; i < len; i++) {
+    xor[i] = xor[i - 1] ^ arr[i];
   }
+
+  for (const [left, right] of queries) {
+    if (left === 0) {
+      res.push(xor[right]);
+    } else {
+      res.push(xor[right] ^ xor[left - 1]);
+    }
+  }
+
   return res;
 }
 
@@ -53,7 +61,7 @@ console.log(
     ]
   )
 ); // [2,7,14,8]
-
+/* 
 console.log(
   xorQueries(
     [4, 8, 2, 10],
@@ -65,3 +73,4 @@ console.log(
     ]
   )
 ); // [8,0,4,4]
+ */
