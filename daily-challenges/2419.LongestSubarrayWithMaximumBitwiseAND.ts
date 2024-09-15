@@ -30,13 +30,18 @@ The longest subarray with that value is [4], so we return 1.
 */
 
 function longestSubarray(nums: number[]): number {
-  let res = 0;
-  for (let i = 1; i < nums.length; i++) {
-    const and = nums[i - 1] & nums[i];
-    res = Math.max(res, and);
+  let maxVal = Math.max(...nums);
+  let maxLength = 0;
+  let currentLength = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === maxVal) {
+      currentLength++;
+      maxLength = Math.max(maxLength, currentLength);
+    } else currentLength = 0;
   }
 
-  return res;
+  return maxLength;
 }
 
 console.log(longestSubarray([1, 2, 3, 3, 2, 2])); // 2
