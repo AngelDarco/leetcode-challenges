@@ -22,25 +22,44 @@ Explanation: In this case, the given string "bcbcbc" is the longest because all 
 */
 
 function findTheLongestSubstring(s: string): number {
-  let res = "";
-  const vowels: { [key: string]: number } = {
-    a: 0,
-    e: 0,
-    i: 0,
-    o: 0,
-    u: 0,
+  let maxLength = 0;
+  let mask = 0;
+
+  // Map to store the index of the first occurrence of each vowel
+  const seen = new Map<number, number>();
+
+  // Map to store the masks for each vowel
+  const vowelMask: { [key: string]: number } = {
+    a: 1 << 0,
+    e: 1 << 1,
+    i: 1 << 2,
+    o: 1 << 3,
+    u: 1 << 4,
   };
 
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] in vowels) vowels[s[i]]++;
+  // Initialize the map with mask 0 at index -1
+  seen.set(0, -1);
 
-    if (vowels[s[i]] <= 2) {
-      res += s[i];
+  for (let i = 0; i < s.length; i++) {
+    const ch = s[i];
+
+    // Update the mask based on the current vowel
+    if (ch in vowelMask) {
+      mask ^= vowelMask[ch];
+    }
+
+    // If we've seen this mask before, calculate the length of the substring
+    if (seen.has(mask)) {
+      maxLength = Math.max(maxLength, i - seen.get(mask)!);
+    } else {
+      // Otherwise, store the first occurrence of this mask
+      seen.set(mask, i);
     }
   }
 
-  console.log(res, vowels);
-  return 0;
+  return maxLength;
 }
 
 console.log(findTheLongestSubstring("eleetminicoworoep")); // 13
+
+console.log(findTheLongestSubstring("leetcodeisgreat")); // 5
