@@ -32,21 +32,12 @@ function uncommonFromSentences(s1: string, s2: string): string[] {
   const res: string[] = [],
     obj: { [key: string]: number } = {};
 
-  const arr1 = s1.split(" ");
-  const arr2 = s2.split(" ");
-  const len = arr1.length < arr2.length ? arr2.length : arr1.length;
+  const words = [...s1.split(" "), ...s2.split(" ")];
 
-  for (let i = 0; i < len; i++) {
-    if (!obj[arr1[i]]) obj[arr1[i]] = 1;
-    else obj[arr1[i]]++;
+  for (let i = 0; i < words.length; i++)
+    obj[words[i]] = (obj[words[i]] | 0) + 1;
 
-    if (!obj[arr2[i]]) obj[arr2[i]] = 1;
-    else obj[arr2[i]]++;
-  }
-
-  for (const key in obj) {
-    if (key !== "undefined") if (obj[key] === 1) res.push(key);
-  }
+  for (const word in obj) if (obj[word] === 1) res.push(word);
 
   return res;
 }
