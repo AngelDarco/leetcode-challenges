@@ -20,7 +20,7 @@ Output: 0
 function findMinDifference(timePoints: string[]): number {
   // Convert time in "HH:MM" to total minutes since midnight
   const convertToMinutes = (time: string): number => {
-    const [hours, minutes] = time.split(":").map(Number);
+    const [hours, minutes] = time.split(":").map((x) => +x);
     return hours * 60 + minutes;
   };
 
@@ -44,3 +44,5 @@ function findMinDifference(timePoints: string[]): number {
 }
 
 console.log(findMinDifference(["23:59", "00:00"])); // 1
+
+console.log(findMinDifference(["00:00", "23:59", "00:00"])); // 0
