@@ -50,7 +50,7 @@ function diffWaysToCompute(expression: string): number[] {
     const char = expression[i];
 
     // If we encounter an operator, split the expression
-    if (char === "+" || char === "-" || char === "*") {
+    if (Number.isNaN(+char)) {
       // Recursively compute the left and right parts
       const left = diffWaysToCompute(expression.slice(0, i));
       const right = diffWaysToCompute(expression.slice(i + 1));
@@ -61,14 +61,11 @@ function diffWaysToCompute(expression: string): number[] {
     }
   }
 
-  // Base case: if the expression is just a number, return it
-  if (results.length === 0) {
-    results.push(Number(expression));
-  }
-
-  return results;
+  return results.length === 0 ? [+expression] : results;
 }
 
 // Example usage:
 const expression = "2-1-1";
 console.log(diffWaysToCompute(expression)); // Output: [0, 2]
+
+console.log(diffWaysToCompute("2*3-4*5")); // Output: [-34, -14, -10, -10, 10]
