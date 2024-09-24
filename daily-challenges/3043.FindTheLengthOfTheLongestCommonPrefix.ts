@@ -30,33 +30,46 @@ Note that common prefixes between elements of the same array do not count.
 */
 
 function longestCommonPrefix(arr1: number[], arr2: number[]): number {
-  const store = new Set();
-  const st1 = new Set(arr1);
-  const st2 = new Set(arr2);
+  function commonPrefixLength(a: string, b: string): number {
+    let left = 0;
+    let right = Math.min(a.length, b.length);
 
-  for (const val of arr2) {
-    let cur = "";
-    const s = String(val);
-    for (const ch of s) {
-      cur += ch;
-      if (!store.has(Number(cur))) {
-        store.add(Number(cur));
+    while (left < right) {
+      const mid = Math.floor((left + right + 1) / 2);
+      if (a.substring(0, mid) === b.substring(0, mid)) {
+        left = mid; // Try to extend the common prefix
+      } else {
+        right = mid - 1; // Reduce the possible length
       }
+    }
+
+    return left;
+  }
+
+  // Convert the arrays to strings and sort them
+  const arr1Str = arr1.map(String).sort();
+  const arr2Str = arr2.map(String).sort();
+
+  let maxLength = 0;
+
+  // Iterate over arr1Str and arr2Str, comparing each element
+  let i = 0,
+    j = 0;
+  while (i < arr1Str.length && j < arr2Str.length) {
+    const prefixLength = commonPrefixLength(arr1Str[i], arr2Str[j]);
+
+    // Update the maxLength
+    maxLength = Math.max(maxLength, prefixLength);
+
+    // Move to the next number in the array with the smaller value
+    if (arr1Str[i] < arr2Str[j]) {
+      i++;
+    } else {
+      j++;
     }
   }
 
-  let ans = 0;
-  for (const val of st1) {
-    let cur = "";
-    const s = String(val);
-    for (const ch of s) {
-      cur += ch;
-      if (store.has(Number(cur))) {
-        ans = Math.max(ans, cur.length);
-      }
-    }
-  }
-  return ans;
+  return maxLength;
 }
 
 console.log(longestCommonPrefix([1, 10, 100], [1000])); // 3
