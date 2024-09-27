@@ -40,7 +40,10 @@ class MyCalendar {
     // Check for overlap with existing events
     for (let [existingStart, existingEnd] of this.events) {
       // If the new event overlaps with any existing event, return false
-      if (Math.max(start, existingStart) < Math.min(end, existingEnd)) {
+      if (
+        (start > existingStart ? start : existingStart) <
+        (end < existingEnd ? end : existingEnd)
+      ) {
         return false; // Overlap found, so booking is not allowed
       }
     }
