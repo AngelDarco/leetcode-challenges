@@ -27,34 +27,30 @@ myCalendar.book(10, 20); // return True
 myCalendar.book(15, 25); // return False, It can not be booked because time 15 is already booked by another event.
 myCalendar.book(20, 30); // return True, The event can be booked, as the first event takes every time less than 20, but not including 20.
 */
-
 class MyCalendar {
-  private event: number[][];
-  private calendar: boolean;
+  private events: number[][]; // Store all booked events
 
   constructor() {
-    this.event = [];
-    this.calendar = false;
+    // Initialize an empty list to hold booked events
+    this.events = [];
   }
 
+  // Function to book a new event
   book(start: number, end: number): boolean {
-    if (this.event.length === 0) {
-      this.event.push([start, end]);
-      this.calendar = true;
-    } else {
-      for (let i = 0; i < this.event.length; i++) {
-        if (
-          (start >= this.event[i][1] && end > this.event[i][1]) ||
-          (start < this.event[i][0] && end <= this.event[i][0])
-        ) {
-          return true;
-        } else return false;
+    // Check for overlap with existing events
+    for (let [existingStart, existingEnd] of this.events) {
+      // If the new event overlaps with any existing event, return false
+      if (Math.max(start, existingStart) < Math.min(end, existingEnd)) {
+        return false; // Overlap found, so booking is not allowed
       }
     }
-    this.event.push([start, end]);
-    return this.calendar;
+
+    // If no overlap, add the event to the calendar
+    this.events.push([start, end]); // Store the new event
+    return true; // Event is successfully booked
   }
 }
+
 /**
  * Your MyCalendar object will be instantiated and called as such:
  * var obj = new MyCalendar()
