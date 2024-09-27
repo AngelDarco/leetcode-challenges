@@ -29,15 +29,65 @@ myCalendar.book(20, 30); // return True, The event can be booked, as the first e
 */
 
 class MyCalendar {
-  constructor() {}
+  private event: number[][];
+  private calendar: boolean;
+
+  constructor() {
+    this.event = [];
+    this.calendar = false;
+  }
 
   book(start: number, end: number): boolean {
-    return true;
+    if (this.event.length === 0) {
+      this.event.push([start, end]);
+      this.calendar = true;
+    } else {
+      for (let i = 0; i < this.event.length; i++) {
+        if (
+          (start >= this.event[i][1] && end > this.event[i][1]) ||
+          (start < this.event[i][0] && end <= this.event[i][0])
+        ) {
+          return true;
+        } else return false;
+      }
+    }
+    this.event.push([start, end]);
+    return this.calendar;
   }
 }
-
 /**
  * Your MyCalendar object will be instantiated and called as such:
  * var obj = new MyCalendar()
  * var param_1 = obj.book(start,end)
  */
+
+var obj = new MyCalendar();
+/* var param_1 = obj.book(10, 20); // return True
+var param_2 = obj.book(15, 25); // return False
+var param_3 = obj.book(20, 30); // return True
+
+console.log(param_1);
+console.log(param_2);
+console.log(param_3); */
+
+var param_1 = obj.book(47, 50);
+var param_2 = obj.book(33, 41);
+var param_3 = obj.book(39, 45);
+var param_4 = obj.book(33, 42);
+var param_5 = obj.book(25, 32);
+var param_6 = obj.book(26, 35);
+var param_7 = obj.book(19, 25);
+var param_8 = obj.book(3, 8);
+var param_9 = obj.book(8, 13);
+var param_10 = obj.book(18, 27);
+
+console.log(param_1); // True
+console.log(param_2); // True
+console.log(param_3); // False
+console.log(param_4); // False
+console.log(param_5); // True
+console.log(param_6); // False
+console.log(param_7); // True
+console.log(param_8); // True
+console.log(param_9); // True
+console.log(param_10); // False
