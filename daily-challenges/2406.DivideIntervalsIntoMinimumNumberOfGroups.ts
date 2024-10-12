@@ -28,8 +28,6 @@ Explanation: None of the intervals overlap, so we can put all of them in one gro
 */
 
 function minGroups(intervals: number[][]): number {
-  // TODO<
-
   return 0;
 }
 
