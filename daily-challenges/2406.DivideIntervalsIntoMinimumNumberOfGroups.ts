@@ -24,11 +24,30 @@ Example 2:
 Input: intervals = [[1,3],[5,6],[8,10],[11,13]]
 Output: 1
 Explanation: None of the intervals overlap, so we can put all of them in one group.
-
 */
 
 function minGroups(intervals: number[][]): number {
-  return 0;
+  const events: [number, number][] = [];
+
+  // Mark the start and end events for each interval
+  for (const [left, right] of intervals) {
+    events.push([left, 1]); // Start of an interval (+1 overlap)
+    events.push([right + 1, -1]); // End of an interval (-1 overlap after the right)
+  }
+
+  // Sort events: if events are at the same time, process end events (-1) before start events (+1)
+  events.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+
+  let maxGroups = 0;
+  let currentGroups = 0;
+
+  // Sweep through the sorted events and track the current number of overlaps
+  for (const [, delta] of events) {
+    currentGroups += delta;
+    maxGroups = Math.max(maxGroups, currentGroups);
+  }
+
+  return maxGroups;
 }
 
 console.log(
