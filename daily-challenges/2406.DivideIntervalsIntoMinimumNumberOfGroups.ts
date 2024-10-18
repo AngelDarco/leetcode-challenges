@@ -31,7 +31,8 @@ function minGroups(intervals: number[][]): number {
 
   // Mark the start and end events for each interval
   for (const [left, right] of intervals) {
-    events.push([left, 1]); // Start of an interval (+1 overlap)
+    // Start of an interval (+1 overlap)
+    events.push([left, 1]);
     events.push([right + 1, -1]); // End of an interval (-1 overlap after the right)
   }
 
